@@ -1,0 +1,9 @@
+# Question 1.
+
+docker build --help
+
+# Question 2.
+
+docker run -it --entrypoint=bash python:3.9
+After that 
+pip list
