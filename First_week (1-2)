@@ -4,6 +4,41 @@ docker build --help
 
 # Question 2.
 
-docker run -it --entrypoint=bash python:3.9
-After that 
+winpty docker run -it --entrypoint=bash python:3.9
 pip list
+
+# Question 3.
+
+SELECT count(1) 
+FROM green_data 
+WHERE CAST(lpep_pickup_datetime) = '2019-01-15' 
+AND
+CAST(lpep_dropoff_datetime) = '2019-01-15';
+
+# Question 4.
+
+SELECT CAST(lpep_pickup_datetime) 
+FROM green_data
+WHERE trip_distance = (
+                      SELECT MAX(trip_distance) 
+                            FROM green_data
+                        );
+                        
+# Question 5.    
+
+SELECT passenger_count, COUNT(1) 
+FROM green_data
+WHERE CAST(lpep_pickup_datetime) = '2019-01-01' 
+AND passenger_count IN (2,3)
+GROUP BY passenger_count
+
+# Question 6.  
+
+SELECT zdo."Zone" 
+FROM green_data gd 
+JOIN zone zdo 
+ON gd."DOLocationID" = zdo."LocationID" 
+JOIN zone zpu ON gd."PULocationID" = zpu."LocationID" 
+WHERE zpu."Zone" = 'Astoria' 
+ORDER BY tip_amount DESC 
+LIMIT 1
